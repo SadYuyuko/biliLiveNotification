@@ -7,7 +7,7 @@
 2.自动跳转浏览器  
 3.自动开始检测  
 4.重置UI删除二级菜单，直播间状态上下滑动  
-5.修改.ini配置文件至C:\Users\用户名\.ReBiliLiveNotification\ReBLN.ini  
+5.修改.ini配置文件至C:\Users\用户名\ .ReBiliLiveNotification\ReBLN.ini  
 6.直播通知改为弹窗提醒，弹窗10分钟后未点击自动关闭  
 7.删除启动通知，因为系统原生推送会留下一长串通知记录...  
 8.单实例启动  
