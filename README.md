@@ -14,6 +14,8 @@
 移动exe单文件位置后若无法启动，请删除配置文件目录下ReBLN.lock，此为单实例锁标记防止多开bug  
 
 修改了关闭逻辑，现在点击X是直接关闭，退出按键改成了隐藏到托盘  
-原图标打包不进来，用ai画了个新的（软件也是用ds 3.2手搓的XD ）
-<img width="543" height="823" alt="sshot-2026-02-11-16-07-00" src="https://github.com/user-attachments/assets/e233c8e8-52d4-4d6c-b45d-a42a9756f865" />  
-<img width="450" height="315" alt="sshot-2026-02-11-16-06-04" src="https://github.com/user-attachments/assets/cad2897a-b9de-4b7a-aec4-6e8032afb577" />  
+原图标打包不进来，用ai画了个新的（软件也是用ds 3.2手搓的XD ）  
+
+<img width="400" height="606" alt="sshot-2026-02-11-16-07-00" src="https://github.com/user-attachments/assets/e233c8e8-52d4-4d6c-b45d-a42a9756f865" />  
+
+<img width="400" height="280" alt="sshot-2026-02-11-16-06-04" src="https://github.com/user-attachments/assets/cad2897a-b9de-4b7a-aec4-6e8032afb577" />  
