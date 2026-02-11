@@ -21,7 +21,7 @@
 原图标打包不进来，用ai画了个新的（软件也是用ds 3.2手搓的XD）  
 
 ## 软件界面  
-<img width="400" height="606" alt="sshot-2026-02-11-16-07-00" src="https://github.com/user-attachments/assets/e233c8e8-52d4-4d6c-b45d-a42a9756f865" />  
+<img width="300" height="455" alt="sshot-2026-02-11-16-07-00" src="https://github.com/user-attachments/assets/e233c8e8-52d4-4d6c-b45d-a42a9756f865" />  
 
 ## 通知弹窗  
-<img width="400" height="280" alt="sshot-2026-02-11-16-06-04" src="https://github.com/user-attachments/assets/cad2897a-b9de-4b7a-aec4-6e8032afb577" />  
+<img width="250" height="175" alt="sshot-2026-02-11-16-06-04" src="https://github.com/user-attachments/assets/cad2897a-b9de-4b7a-aec4-6e8032afb577" />  
