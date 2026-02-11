@@ -15,3 +15,6 @@
 
 修改了关闭逻辑，现在点击X是直接关闭，退出按键改成了隐藏到托盘  
 原图标打包不进来，用ai画了个新的（软件也是用ds 3.2手搓的XD ）
+<img width="543" height="823" alt="sshot-2026-02-11-16-07-00" src="https://github.com/user-attachments/assets/e233c8e8-52d4-4d6c-b45d-a42a9756f865" />  
+<img width="450" height="315" alt="sshot-2026-02-11-16-06-04" src="https://github.com/user-attachments/assets/cad2897a-b9de-4b7a-aec4-6e8032afb577" />  
+<img width="612" height="495" alt="sshot-2026-02-11-16-19-25" src="https://github.com/user-attachments/assets/a53fb99a-f7be-4dca-9206-0df42e7412d0" />  
