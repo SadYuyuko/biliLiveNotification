@@ -44,6 +44,13 @@ config_path = os.path.join(user_config_dir, 'ReBLN.ini')
 # UA
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0"}
 
+# 辅助函数：线程安全地插入日志（在主线程执行）
+def info_text_insert(message):
+    info_text.config(state=tk.NORMAL)
+    info_text.insert(tk.END, time.strftime("%m-%d %H:%M:%S", time.localtime()) + '   ' + message + '\n')
+    info_text.config(state=tk.DISABLED)
+    info_text.see(tk.END)
+
 # 关于
 def show_about_window():
     about_window = tk.Toplevel(root)
@@ -509,7 +516,7 @@ def stop_listen():
 @retry(stop_max_attempt_number=5)
 def get_live_status(rid):
     url = api + rid
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=10)  # 添加超时
     assert response.status_code == 200
     if response.json()['code'] != 0:
         raise RuntimeError(f'直播间 {rid} 不存在')
@@ -523,7 +530,7 @@ def get_live_status(rid):
 @retry(stop_max_attempt_number=3)
 def get_streamer_info(uid):
     url = "https://api.live.bilibili.com/live_user/v1/Master/info?uid=" + str(uid)
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=10)  # 添加超时
     assert response.status_code == 200
     streamer_json = response.json()
     return_dict = {
@@ -625,6 +632,8 @@ def listen_main(roomID, roomID_dic, wait_time):
     ex = ""
     global stop_flag, pause_flag
     
+    error_flag = {rid: False for rid in roomID}
+    
     while True:
         if stop_flag:
             raise RuntimeError("停止检测")
@@ -644,6 +653,29 @@ def listen_main(roomID, roomID_dic, wait_time):
                 live_info_dict = get_live_status(rid)
                 live_status = live_info_dict['live_status']
                 uid = live_info_dict['uid']
+                
+                # 网络恢复
+                if error_flag.get(rid, False):
+                    root.after(0, lambda r=rid: info_text_insert(f"网络恢复..."))
+                    error_flag[rid] = False
+                    
+                    try:
+                        if rid in streamer_info and 'uname' in streamer_info[rid]:
+                            uname = streamer_info[rid]['uname']
+                        else:
+                            uinfo_dict = get_streamer_info(uid)
+                            uname = uinfo_dict['uname']
+                            streamer_info[rid] = {
+                                'uid': uid,
+                                'uname': uname,
+                                'face': uinfo_dict.get('face', '')
+                            }
+                        status_text = "直播中" if live_status == 1 else "未开播"
+                        root.after(0, lambda r=rid, n=uname, s=status_text: update_table_row(r, n, s))
+                    except Exception as e:
+                        status_text = "直播中" if live_status == 1 else "未开播"
+                        root.after(0, lambda r=rid, n=str(rid), s=status_text: update_table_row(r, n, s))
+                        root.after(0, lambda: info_text_insert(f"网络恢复后更新主播信息失败: {e}"))
                 
                 if live_status == 1:
                     if i == 0:
@@ -724,12 +756,18 @@ def listen_main(roomID, roomID_dic, wait_time):
                 info_text.insert(tk.END, time.strftime("%m-%d %H:%M:%S", time.localtime()) + '   ' + str(e) + '\n')
                 info_text.config(state=tk.DISABLED)
                 info_text.see(tk.END)
+                
+                # 更新表格为错误状态
+                uname = streamer_info.get(rid, {}).get('uname', rid)
+                root.after(0, lambda r=rid, n=uname: update_table_row(r, n, "错误"))
+                error_flag[rid] = True
+                i += 1
 
         if stop_flag:
             raise RuntimeError("停止检测")
         if ex != "":
             ex = ""
-            wait_event.wait(5)
+            wait_event.wait(10)
             continue
         wait_event.wait(wait_time)
 
@@ -758,7 +796,7 @@ def save_settings():
         return
     
     if not api_url:
-        tkmb.Messagebox.show_error(title="错误", message="API网址不能为空")
+        tkmb.Messagebox.show_error(title="错误", message="API不能为空")
         return
     
     try:
@@ -859,12 +897,16 @@ def update_table_row(rid, uname, status):
         tree.delete(item)
     
     global rowdata
+    found = False
     new_rowdata = []
     for row in rowdata:
         if row[1] == rid:
             new_rowdata.append((uname, rid, status))
+            found = True
         else:
             new_rowdata.append(row)
+    if not found:
+        new_rowdata.append((uname, rid, status))
     rowdata = new_rowdata
     
     for row in rowdata:
@@ -1181,7 +1223,7 @@ if __name__ == "__main__":
         info_text.config(state=tk.NORMAL)
         info_text.insert(tk.END,
                          time.strftime("%m-%d %H:%M:%S", time.localtime()) + '   '
-                         + "已恢复默认API网址" + '\n')
+                         + "已恢复默认API" + '\n')
         info_text.config(state=tk.DISABLED)
         info_text.see(tk.END)
     
