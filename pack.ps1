@@ -1,0 +1,1 @@
+pyinstaller --onefile --windowed --name "Re.BiliLiveNotification" ReBiliLiveNotificationGui.py
