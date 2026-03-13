@@ -2,12 +2,12 @@
 ## B站直播开播提醒 - 重制版
 [exe单文件](https://github.com/SadYuyuko/biliLiveNotification/releases/download/v1.1/Re.BiliLiveNotification.exe)  
 
-新增功能：  
+修改内容：  
 1.使用计划任务开机自启  
-2.自动跳转到浏览器  
+2.自动跳转浏览器  
 3.自动开始检测  
-4.修改UI删除二级菜单，直播间列表改为上下滑动  
-5.将.ini配置文件存放至C:\Users\用户名\\.ReBiliLiveNotification\ReBLN.ini  
+4.删除二级菜单，直播间列表上下滑动  
+5.将.ini配置文件存放至`C:\Users\用户名\.ReBiliLiveNotification\ReBLN.ini`  
 6.直播通知改为弹窗提醒，弹窗10分钟后未点击自动关闭  
 7.删除启动通知，因为系统原生推送会留下一长串通知记录...  
 8.单实例启动  
@@ -15,7 +15,7 @@
 
 自动检测逻辑：程序关闭前如果没有手动停止检测，下次启动时将会自动开始检测，用于搭配开机自启，配置文件中使用autoStartListen=0/1控制  
 修改了关闭逻辑，点击X是直接关闭，退出键改成了隐藏到托盘  
-原图标打包不进来，用ai画了个新的（软件也是用ds 3.2手搓的XD）  
+原图标打包不进来，用ai画了个新的 
 
 注意：  
 1.设置开机自启需要以管理员运行，移动.exe位置后要重新设置开机自启  
